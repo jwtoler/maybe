@@ -3,7 +3,7 @@ version: '3.9'
 
 services:
     postgres:
-        container_name: postgres
+        container_name: maybe-postgres
         profiles: [services]
         image: timescale/timescaledb:latest-pg14
         ports:
@@ -16,7 +16,7 @@ services:
             - postgres_data:/var/lib/postgresql/data
 
     redis:
-        container_name: redis
+        container_name: maybe-redis
         profiles: [services]
         image: redis:6.2-alpine
         ports:
@@ -27,7 +27,7 @@ services:
         env_file: .env
         image: shkoliar/ngrok:latest
         profiles: [ngrok]
-        container_name: ngrok
+        container_name: maybe-ngrok
         ports:
             - 4551:4551
         environment:
@@ -37,7 +37,7 @@ services:
             - DEBUG=true
 
     stripe:
-        container_name: stripe
+        container_name: maybe-stripe
         image: stripe/stripe-cli:latest
         profiles: [stripe]
         command: listen --forward-to host.docker.internal:3333/v1/stripe/webhook --log-level warn
